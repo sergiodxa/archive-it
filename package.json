@@ -7,8 +7,8 @@
     "build": "ncc build src/index.ts -m -s",
     "start": "ncc run src/index.ts -s"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["slack", "archive", "channels", "messages"],
+  "author": "Sergio Xalambrí <hello@sergiodxa.com> (https://sergiodxa.com)",
   "license": "ISC",
   "devDependencies": {
     "@zeit/ncc": "^0.15.2",

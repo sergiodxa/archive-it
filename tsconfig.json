@@ -1,0 +1,7 @@
+{
+  "files": ["src/index.ts", "src/lib/fetch.ts", "src/services/slack.ts"],
+  "compilerOptions": {
+    "target": "es2015",
+    "moduleResolution": "node"
+  }
+}

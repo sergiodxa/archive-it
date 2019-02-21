@@ -17,7 +17,7 @@ export interface IMessage {
 
 export async function getHistory(
   channel: string,
-  since: number
+  since?: number
 ): Promise<IMessage[]> {
   const query = stringify(
     Object.assign(

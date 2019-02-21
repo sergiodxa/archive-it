@@ -11,6 +11,9 @@ async function requestListener(
 ) {
   if (req.url === "/favicon.ico") res.end();
   const { query } = url.parse(req.url, true);
+  const title: string = Array.isArray(query.title)
+    ? query.title[0]
+    : query.title;
   const channel: string = Array.isArray(query.channel)
     ? query.channel[0]
     : query.channel;
@@ -19,6 +22,10 @@ async function requestListener(
     10
   );
 
+  if (!title) {
+    return res.end("Missing title for the archive.");
+  }
+
   if (!channel) {
     return res.end("Missing Slack channel ID.");
   }
@@ -26,7 +33,7 @@ async function requestListener(
   try {
     const messages = await slack.getHistory(channel, since);
     res.writeHead(200, { "Content-Type": "application/json" });
-    return res.end(JSON.stringify(messages, null, 2));
+    return res.end(JSON.stringify({ title, messages }, null, 2));
   } catch (error) {
     res.write(error.message);
     return res.end();

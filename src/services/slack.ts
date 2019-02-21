@@ -17,7 +17,8 @@ export interface IMessage {
 
 export async function getHistory(
   channel: string,
-  since?: number
+  since?: number,
+  { limit = 100 } = {}
 ): Promise<IMessage[]> {
   const query = stringify(
     Object.assign(
@@ -25,7 +26,8 @@ export async function getHistory(
         token: SLACK_TOKEN,
         channel,
         inclusive: true,
-        latest: Date.now()
+        latest: Date.now(),
+        count: limit
       },
       since ? { oldest: since } : {}
     )
@@ -41,7 +43,7 @@ export async function getHistory(
   }
 
   const data = await response.json();
-  console.log(data);
+
   if (!data.ok) {
     console.error(data);
     throw new Error("Failed request");

@@ -26,6 +26,11 @@ async function requestListener(
     10
   );
 
+  const limit: number = parseInt(
+    (Array.isArray(query.limit) ? query.limit[0] : query.limit) || "100",
+    10
+  );
+
   if (!title) {
     return res.end("Missing title for the archive.");
   }
@@ -35,7 +40,7 @@ async function requestListener(
   }
 
   try {
-    const messages: slack.IMessage[] = await slack.getHistory(channel, since);
+    const messages: slack.IMessage[] = await slack.getHistory(channel, since, { limit });
     res.writeHead(200, { "Content-Type": "application/json" });
     return res.end(JSON.stringify({ title, messages }, null, 2));
   } catch (error) {
